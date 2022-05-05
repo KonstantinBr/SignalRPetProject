@@ -1,0 +1,51 @@
+﻿@model SocialNetwork.Models.Users
+@{
+    ViewBag.Title = "Index";
+}
+<html>
+<head>
+    <link href="~/Bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <title>@Model.UserName</title>
+    <link href="~/Content/styles/IndexStyles.css" rel="stylesheet" />
+    <style>
+        .circle {
+            background-image: url("@Model.PhotoURL");
+        }
+
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#responsive-menu">
+                    <span class="sr-only">Открыть навигацию</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="#" class="navbar-brand"></a>
+            </div>
+            <ul class="nav navbar-nav collapse navbar-collapse" id="responsive-menu">
+                <li>@Html.ActionLink("Моя страница", "Index")</li>
+                <li>@Html.ActionLink("Сообщения", "DialogList", "Dialogs")</li>
+                <li>@Html.ActionLink("Настройки", "Settings")</li>
+                <li>@Html.ActionLink("Выход", "HelloPage", null, new {@style = "color:#c15c5c;" })</li>
+            </ul>
+        </div>
+    </div>
+    <header>
+        <h1 class="circle"></h1>
+    </header>
+    <header>
+        <h1>@Model.UserName @Model.UserSurname</h1>
+    </header>
+    <section>
+        <div class="element">
+            <p>Возраст:  @Model.Age</p>
+        </div>
+    </section>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="~/Bootstrap/js/bootstrap.js"></script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+﻿@model SocialNetwork.Models.UsersAndMessagesModel
+@{
+    ViewBag.Title = "AddDialogUser";
+}
+<link href="~/Bootstrap/css/bootstrap.css" rel="stylesheet" />
+<html>
+<head>
+    <link href="~/Content/styles/AddDialogUserStyles.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="container " style="text-align:center">
+        <header>Добавление пользователя</header>
+        @using (Html.BeginForm("SaveDialog"))
+        {
+            foreach (var item in Model.Users)
+            {
+                if (item.Id != Model.AuthorizedUser.Id)
+                {
+                    <text>
+                        <div class="messagesRow" id="@item.Id">
+                            <img src="@item.PhotoURL" class="circle">
+                            @item.UserName
+                        </div>
+                    </text>
+                }
+            }
+            <input type="button" class=" btn btn-default btn-lg" id="add" value="Добавить" />
+        }
+    </div>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.4.0.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="~/Bootstrap/js/bootstrap.js"></script>
+    <script>
+                Array.prototype.remove = function (value) {
+                    var idx = this.indexOf(value);
+                    if (idx != -1) return this.splice(idx, 1);
+                    return false;
+                }
+            $(function () {
+                var userList = new Array();
+                var chat = $.connection.addDialogUserHub;
+                $.connection.hub.start().done(function () {
+                    $('.messagesRow').click(function (event) {
+                        if (this.style.backgroundColor == "white") {
+                            userList.remove(this.id);
+                            this.style.backgroundColor = "#808080";
+                        }
+                        else {
+                            userList.push(this.id);
+                            this.style.backgroundColor = "white";
+                        }
+                    });
+                    $('#add').click(function () {
+                        var idArray = userList;
+                        chat.server.send(idArray, @Model.CurrentDialog.Id);
+                        window.location = "@Url.Action("Messages", "Dialogs", new { diadogId = Model.CurrentDialog.Id})";
+                    });
+                });
+        });
+    </script>
+</body>
+</html>

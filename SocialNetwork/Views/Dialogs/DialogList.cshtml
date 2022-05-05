@@ -1,0 +1,51 @@
+﻿@model IEnumerable<SocialNetwork.Models.Dialog>
+@{
+    ViewBag.Title = "DialogList";
+}
+<html>
+<head>
+    <link href="~/Bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <title>
+        Список диалогов
+    </title>
+    <link href="~/Content/styles/dialogListStyles.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#responsive-menu">
+                    <span class="sr-only">Открыть навигацию</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="#" class="navbar-brand"></a>
+            </div>
+            <ul class="nav navbar-nav collapse navbar-collapse" id="responsive-menu">
+                <li>@Html.ActionLink("Моя страница", "Index", "Account")</li>
+                <li>@Html.ActionLink("Сообщения", "DialogList")</li>
+                <li>@Html.ActionLink("Настройки", "Settings", "Account")</li>
+                <li>@Html.ActionLink("Выход", "HelloPage", "Account", null, new { @style = "color:#c15c5c;" })</li>
+            </ul>
+        </div>
+    </div>
+    <header><h1>Список диалогов</h1></header>
+    <section>
+        @foreach (var item in Model)
+        {
+            <div class="Dialog">@Html.ActionLink(item.DialogName, "Messages", new { diadogId = @item.Id }, new { @style = " width: 92%; display: inline-block;"})
+                <span class="del">@Html.ActionLink(" ", "RemoveDialog", new { id = @item.Id }, new { @style = " display: inline-block; position: relative;bottom: 35%;" })</span>
+            </div>
+        }
+    </section>
+
+    <div class="circle">
+        @Html.ActionLink(" ", "CreateDialog")
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="~/Bootstrap/js/bootstrap.js"></script>
+    <script>
+    </script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+﻿@model SocialNetwork.Models.UsersAndMessagesModel
+@{
+    ViewBag.Title = "Messages";
+}
+<link href="~/Bootstrap/css/bootstrap.css" rel="stylesheet" />
+<html>
+<head>
+    <link href="~/Content/styles/messagesStyles.css" rel="stylesheet" />
+</head>
+<body style=" background: white">
+
+    <div class="container " style="background-color:#000000; height: 100%;">
+        <header>@Model.CurrentDialog.DialogName</header>
+        <div class="content" id="mainContainer" style="margin: 0px;">
+            @foreach (var item in Model.MessagesAndUsers)
+            {
+                <div class="messAlign">
+                    @if (item.User.Id == Model.AuthorizedUser.Id)
+                    {
+                        <div class="row messagesRow" style="margin-left: auto;  margin-right: 0em; background-color:white">
+                            <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1">
+                                <img class="circle" src="@item.User.PhotoURL" width="100" />
+                            </div>
+                            <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4 name">
+                                @item.User.UserName
+                            </div>
+                            <div class="col-md-8 col-lg-8 col-sm-8 col-xs-8 message">
+                                @item.Message.MessageText
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="row messagesRow">
+                            <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1">
+                                <img class="circle" src="@item.User.PhotoURL" width="100" />
+                            </div>
+                            <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4 name">
+                                @item.User.UserName
+                            </div>
+                            <div class="col-md-8 col-lg-8 col-sm-8 col-xs-8 message">
+                                @item.Message.MessageText
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            }
+        </div>
+        <form class="Form" style=" margin:11px; text-align:center">
+            <div class="row">
+                <div class="inputText">
+                    <textarea style="width:125%; height:10%;" id="message" class="form-control"></textarea>
+                </div>
+                <div class="inputButton">
+                    <input type="button" value="Отправить" class="btn btn-default btn-block" id="sendmessage" style="display: inline-block; width: 40%; margin:20px; height:7%;font-size:230%;">
+                </div>
+                <div class="photolistic" style="width:100%; text-align:center">
+                    @foreach (var item in Model.Users)
+                    {
+                        <div class="circleMin" style="background-image: url('@item.PhotoURL');" oncontextmenu="delUser(@Model.CurrentDialog.Id, @item.Id)">
+                            @Html.ActionLink(" ", "FriendPage","Account", new { userId = @item.Id }, new { @class="delLink"})
+                        </div>
+                    }
+                </div>
+                <div class="inputButton btn btn-default" style=" width:33%; background-color:#6f6f6f; color:black; ">
+                    @Html.ActionLink("На главную", "Index", "Account")
+                </div>
+            </div>
+        </form>
+
+    </div>
+    <div class="circleAdd">
+        @Html.ActionLink(" ", "AddDialogUser", new { diadogId = Model.CurrentDialog.Id})
+    </div>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.4.0.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="~/Bootstrap/js/bootstrap.js"></script>
+    <script>
+
+        $(function () {
+            var chat = $.connection.chatHub;
+            var block = document.getElementById("mainContainer");
+            block.scrollTop = block.scrollHeight;
+            // Объявление функции, которая хаб вызывает при получении сообщений
+            chat.client.addMessageToMe = function (name, message) {
+                // Добавление сообщений на веб-страницу
+                $('#mainContainer').append(
+                    `<div class="messAlign"> 
+                        <div class="row messagesRow" style="margin-left: auto;  margin-right: 0em; background-color:#ffffff">
+                            <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1">
+                                <img class="circle" src="@Model.AuthorizedUser.PhotoURL" width="100"/>
+                            </div>
+                            <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4 name">` + name +
+                           `</div> 
+                            <div class="col-md-8 col-lg-8 col-sm-8 col-xs-8 message">` + message +
+                           `</div>
+                        </div>
+                    </div>`);
+                var block = document.getElementById("mainContainer");
+                block.scrollTop = block.scrollHeight;
+            };
+
+            chat.client.addMessage = function (name, message, photoURL) {
+                // Добавление сообщений на веб-страницу
+                $('#mainContainer').append(
+                    `<div class="row messagesRow">
+                            <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1">
+                                <img class="circle" src="`+ photoURL +`" width="100" />
+                            </div>
+                            <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4 name">`
+                                 +name+
+                            `</div>
+                            <div class="col-md-8 col-lg-8 col-sm-8 col-xs-8 message">`
+                                 +message+
+                           `</div>
+                        </div>`);
+                var block = document.getElementById("mainContainer");
+                block.scrollTop = block.scrollHeight;
+            };
+
+            $.connection.hub.start().done(function () {
+                $('#sendmessage').click(function () {
+                    // Вызываем у хаба метод Send
+                    var id = '@Model.AuthorizedUser.Id' + " " + '@Model.CurrentDialog.Id';
+                    chat.server.send(id, $('#message').val());
+                    $('#message').val('');
+                });
+            });
+        });
+
+        function delUser(dialogId, userId) {
+             if (confirm("Удалить пользоваеля ? ")) {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("DeliteDialogUser", "Dialogs")",
+                    data: { diadogId:dialogId, userId: userId},
+                    success: () =>
+                    {
+                        window.location = "@Url.Action("Messages", "Dialogs",new { diadogId = Model.CurrentDialog.Id })";
+                    }
+                });
+            }
+        }
+
+    </script>
+</body>
+</html>

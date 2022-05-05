@@ -1,0 +1,112 @@
+﻿header {
+    text-align: center;
+    font-family: 'Times New Roman';
+    color: ghostwhite;
+    font-size: 200%;
+    font-family: 'Yu Gothic UI';
+    font-weight: bolder;
+}
+
+.content {
+    height: 400px; 
+    width: auto; 
+    background: linear-gradient(to top, rgb(128, 128, 128), rgb(255, 255, 255)); 
+    margin: 40px;
+    overflow-x: hidden;
+    overflow-y: scroll; 
+}
+
+.inputText {
+    float: left;
+    padding: 3px;
+    width: 80%;
+}
+
+.messagesRow {
+    padding: 3px;
+    margin: 15px;
+    border-radius: 5px;
+    width: 50%;
+    background-color: rgb(156, 156, 156);
+    color: #000;
+}
+
+.inputButton a {
+    height: auto;
+}
+
+.circle {
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+    background-position: center;
+    -moz-box-shadow: 0 0 30px #000;
+    -webkit-box-shadow: 0 0 30px #000;
+    box-shadow: 0 0 10px #000;
+    display: block;
+    float: left;
+}
+
+.circleMin {
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+    background-position: center;
+    box-shadow: 0 0 5px #000;
+    margin: 5px;
+    display:inline-block;
+    background-size: auto 50px;
+    background-position: center;
+}
+    .circleMin:hover {
+        box-shadow: 0 0 30px ghostwhite;
+    }
+
+    .circleMin:active {
+        box-shadow: 0 0 30px #ff0000;
+    }
+
+.name {
+    margin-left: 30px;
+    font-size: smaller;
+    color: #d0cfcf;
+}
+
+.message {
+    margin-left: 30px;
+    font-size: larger;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+    display: block; /* Ссылка как блочный элемент */
+    text-align: center; /* Выравнивание по центру */
+    height: 100%;
+}
+
+    a:hover,
+    a:active {
+        color: white;
+        text-decoration: none;
+    }
+
+.circleAdd {
+    border-radius: 100%;
+    width: 60px;
+    height: 60px;
+    background-size: auto 100px;
+    background-position: center;
+    -moz-box-shadow: 0 0 60px #000;
+    -webkit-box-shadow: 0 0 60px #000;
+    box-shadow: 0 0 20px #000;
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    background-image: url('../../Content/plus.png');
+}
+
+    .circleAdd:hover {
+        -moz-box-shadow: 0 0 10px #000;
+        -webkit-box-shadow: 0 0 10px #000;
+    }

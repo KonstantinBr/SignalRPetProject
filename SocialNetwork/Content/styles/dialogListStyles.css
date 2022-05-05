@@ -1,0 +1,81 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    background: white;
+}
+
+header {
+    text-align: center;
+    font-size: 200%;
+}
+
+section {
+    max-width: 900px;
+    margin: 10px auto;
+}
+
+h1 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: rgb(0, 0, 0);
+    display: inline-block;
+}
+
+.Dialog {
+    height: 150px; /* Высота слоя */
+    background: rgb(0, 0, 0); /* Цвет фона */
+    margin: 10px;
+    transition: 0.1s linear; /* Время изменения */
+    text-align: center;
+}
+
+    .Dialog:hover {
+        background: rgb(44, 44, 44); /* Цвет фона */
+    }
+
+    .Dialog a, .del a, .circle a {
+        color: white;
+        text-decoration: none;
+        font-size: 100px;
+        display: block; /* Ссылка как блочный элемент */
+        text-align: center; /* Выравнивание по центру */
+        height: 100%;
+    }
+
+        .Dialog a:hover, .del a:hover, .circle a:hover {
+            color: white;
+            text-decoration: none;
+        }
+
+        .Dialog a:active, .del a:active, .circle a:active {
+            color: white;
+            text-decoration: none;
+        }
+
+.circle {
+    border-radius: 100%;
+    width: 100px;
+    height: 100px;
+    background-size: auto 100px;
+    background-position: center;
+    -moz-box-shadow: 0 0 60px #000;
+    -webkit-box-shadow: 0 0 60px #000;
+    box-shadow: 0 0 20px #000;
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    background-image: url('../../Content/plus.png');
+}
+
+    .circle:hover {
+        -moz-box-shadow: 0 0 10px #000;
+        -webkit-box-shadow: 0 0 10px #000;
+    }
+
+.del a {
+    background-size: auto 40px;
+    background-position: center;
+    width: 40px;
+    height: 40px;
+    background-image: url('../../Content/cancel.png');
+
+}

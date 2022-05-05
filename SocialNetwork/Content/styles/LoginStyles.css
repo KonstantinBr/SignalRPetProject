@@ -1,0 +1,48 @@
+﻿header {
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: rgb(0, 0, 0);
+    font-size: 200%;
+}
+
+section {
+    text-align: center;
+    max-width: 500px;
+    margin: 10px auto;
+}
+
+.input {
+    height: 150px; /* Высота слоя */
+    background: rgb(0, 0, 0); /* Цвет фона */
+    margin: 10px;
+    transition: 0.1s linear; /* Время изменения */
+}
+
+.inputSub {
+    height: 100px; /* Высота слоя */
+    background: rgb(0, 0, 0); /* Цвет фона */
+    margin: 10px;
+    transition: 0.1s linear; /* Время изменения */
+}
+
+.input:hover {
+    background: rgb(44, 44, 44); /* Цвет фона */
+}
+
+input {
+    margin: 20px;
+    height: 60px;
+    width: 380px;
+    padding: 5px 8px;
+}
+
+p {
+    color: white;
+    margin: 5px;
+    font-size: 30px;
+    font-style: oblique;
+}
+
+.form-control {
+    width: 90%;
+}

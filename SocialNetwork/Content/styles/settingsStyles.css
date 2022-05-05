@@ -1,0 +1,141 @@
+﻿h3 {
+    color: red;
+}
+
+body {
+    background: white;
+}
+
+header {
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: #000;
+    font-size: 200%;
+}
+
+section {
+    text-align: center;
+    max-width: 800px;
+    margin: 10px auto;
+}
+
+.input {
+    height: 150px; /* Высота слоя */
+    background: #000; /* Цвет фона */
+    margin: 10px;
+    transition: 0.1s linear; /* Время изменения */
+}
+
+.inputButton {
+    height: 100px; /* Высота слоя */
+    background: #000; /* Цвет фона */
+    margin: 10px;
+    transition: 0.1s linear; /* Время изменения */
+}
+
+.input:hover {
+    background: rgb(44, 44, 44); /* Цвет фона */
+}
+
+input, #countryName {
+    margin: 20px;
+    height: 60px;
+    width: 680px;
+    padding: 5px 8px;
+}
+
+#DayOfBirth {
+    width: 650px;
+}
+
+.edit {
+    color: #fff;
+    background-color: #6496c8;
+    text-shadow: -1px 1px #417cb8;
+    border: none;
+    font-size: 30px;
+    transition: 0.1s linear; /* Время изменения */
+}
+
+    .edit:hover,
+    .edit.hover {
+        background-color: #000;
+        text-shadow: -1px 1px #000;
+    }
+
+    .edit:active,
+    .rd.active {
+        background-color: #000;
+        text-shadow: -1px 1px #000;
+    }
+
+p {
+    color: white;
+    margin: 5px;
+    font-size: 30px;
+    font-style: oblique;
+}
+
+.link {
+    background: #000; /* Цвет фона */
+    margin: 10px;
+    transition: 0.1s linear; /* Время изменения */
+}
+
+    .link:hover {
+        background: #000; /* Цвет фона */
+    }
+
+    .link a {
+        font-size: 50px;
+        margin: auto;
+        display: block; /* Ссылка как блочный элемент */
+        color: #fff; /* Цвет ссылки */
+        text-decoration: none;
+    }
+
+.error {
+    color: orangered;
+    margin: 10px;
+}
+
+.editBar {
+    display: block;
+    width: 50px;
+    height: 50px;
+    background-color:black;
+}
+
+#btn-save {
+    font-size: 2em;
+    color: #ffffff;
+}
+
+#UserName, #UserSurname, #UserLogin, #UserPassword, #countryName{
+    float: left;
+    width: 650px;
+}
+
+#uploadImg {
+    float: left;
+    width: 650px;
+    background-color:black;
+    color:white;
+}
+
+#DayOfBirthOb {
+    float: left;
+    width: 690px;
+    padding: 20px;
+}
+
+.circle {
+    border-radius: 100%;
+    width: 230px;
+    height: 230px;
+    background-size: auto 250px;
+    background-position: center;
+    -moz-box-shadow: 0 0 60px #000;
+    -webkit-box-shadow: 0 0 60px #000;
+    box-shadow: 0 0 60px #000;
+}

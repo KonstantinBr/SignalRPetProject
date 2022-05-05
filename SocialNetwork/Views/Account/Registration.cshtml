@@ -1,0 +1,56 @@
+﻿@model SocialNetwork.Models.RegistrationModel
+
+@{
+    ViewBag.Title = "Registration";
+}
+
+<html>
+<head>
+    <script src="~/Bootstrap/js/bootstrap.js"></script>
+    <link href="~/Bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <title>Регистрация</title>
+    <link href="~/Content/styles/RegistrationStyles.css" rel="stylesheet" />
+</head>
+<body style="background: white">
+    <header>
+        <h1 class="page-header">Регистрация</h1>
+    </header>
+    <section>
+        <h3 style="color: red;">@ViewBag.Message</h3>
+        @using (Html.BeginForm("Registration"))
+        {
+            <div class="input">
+                <p>
+                    Имя
+                </p>
+                @Html.TextBoxFor(c => c.UserName, new { @class = "form-control" })
+            </div>
+            <div class="input">
+                <p>
+                    Логин
+                </p>
+                @Html.TextBoxFor(c => c.UserLogin, new { @class = "form-control" })
+
+            </div>
+            <div class="input">
+                <p>
+                    Пароль
+                </p>
+                @Html.PasswordFor(c => c.Password, new { @class = "form-control" })
+
+            </div>
+            <div class="input">
+                <p>
+                    Подтвердите пароль
+                </p>
+                @Html.PasswordFor(c => c.Password2, new { @class = "form-control" })
+            </div>
+            <div class="inputSub">
+                <input type="submit" class="btn btn-default btn-lg" value="Зарегистрироваться" />
+            </div>
+        }
+    </section>
+</body>
+</html>
+
+

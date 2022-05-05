@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "HelloPage";
+}
+<html>
+<head>
+    <link href="~/Bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <script src="~/Bootstrap/js/bootstrap.js"></script>
+    <title>Месенджер</title>
+    <link href="~/Content/styles/HelloPageStyles.css" rel="stylesheet" />
+</head>
+<body style="background: white">
+    <header>
+        <h1 class="page-header"><strong>Добро пожаловать</strong></h1>
+    </header>
+    <section>
+        <div onclick="login.click();" class="btn btn-black btn-lg">
+            @Html.ActionLink("Вход", "Login",null, new { @id = "login" })
+        </div>
+        <div onclick="registration.click();" class="btn btn-dark btn-lg">
+            @Html.ActionLink("Регистрация", "Registration",null, new { @id = "registration" })
+        </div>
+    </section>
+
+</body>
+</html>
+

@@ -1,0 +1,182 @@
+﻿@model SocialNetwork.Models.Users
+@{
+    ViewBag.Title = "Settings";
+    var displayImage = Model.PhotoURL == null ? "none" : "";
+}
+
+<html>
+<head>
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.3.1017/styles/kendo.common-material.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.3.1017/styles/kendo.material.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.3.1017/styles/kendo.material.mobile.min.css" />
+
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/kendo.all.min.js"></script>
+    <link href="~/Bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <script src="~/Bootstrap/js/bootstrap.js"></script>
+    <link href="~/Content/styles/settingsStyles.css" rel="stylesheet" />
+    <title>Настройки</title>
+    <style>
+        .circle {
+            background-image: url("@Model.PhotoURL");
+            display:@displayImage;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#responsive-menu">
+                    <span class="sr-only">Открыть навигацию</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="#" class="navbar-brand"></a>
+            </div>
+            <ul class="nav navbar-nav collapse navbar-collapse" id="responsive-menu">
+                <li>@Html.ActionLink("Моя страница", "Index")</li>
+                <li>@Html.ActionLink("Сообщения", "DialogList", "Dialogs")</li>
+                <li>@Html.ActionLink("Настройки", "Settings")</li>
+                <li>@Html.ActionLink("Выход", "HelloPage", null, new { @style = "color:#c15c5c;" })</li>
+            </ul>
+        </div>
+    </div>
+    <header>
+        <h1>Настройки</h1>
+    </header>
+    <section>
+
+        @using (Html.BeginForm("Upload", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="input" style="height: 400px;">
+                <p>Фото</p>
+
+                <img width="100" class="circle">
+                <input id="uploadImg" type="file" class="btn btn-default btn-lg" name="uploadAvatar" accept="image/*" value="Выберите фото" /><br>
+                 <button type="submit" class="editBar">
+                    <span id="btn-save" class="glyphicon glyphicon-floppy-disk"></span>
+                </button>
+            </div>
+        }
+
+
+        @using (Ajax.BeginForm("ChangeFirstName", null, new AjaxOptions { HttpMethod = "POST" }, new { @class = "updateUserForm", @field = Html.NameFor(c => c.UserName) }))
+        {
+            <div class="input">
+                <p>Имя</p>
+                @Html.TextBoxFor(c => c.UserName, new { @class = "userData form-control" })
+                <button type="submit" class="editBar">
+                    <span id="btn-save" class="glyphicon glyphicon-floppy-disk"></span>
+                </button>
+            </div>
+        }
+
+
+        @using (Ajax.BeginForm("ChangeSurname", null, new AjaxOptions { HttpMethod = "POST" }, new { @class = "updateUserForm", @field = Html.NameFor(c => c.UserSurname) }))
+        {
+            <div class="input">
+                <p>Фамилия</p>
+                @Html.TextBoxFor(c => c.UserSurname, new { @class = "userData form-control" })
+                <button type="submit" class="editBar">
+                    <span id="btn-save" class="glyphicon glyphicon-floppy-disk"></span>
+                </button>
+            </div>
+        }
+
+
+        @using (Ajax.BeginForm("ChangeDayOfBirth", null, new AjaxOptions { HttpMethod = "POST" }, new { @class = "updateUserForm", @field = Html.NameFor(c => c.DayOfBirth) }))
+        {
+            <div class="input">
+                <p> День рождения</p>
+                <div id="DayOfBirthOb">
+                    @Html.TextBoxFor(c => c.DayOfBirth, new { @class = "userData form-control", @id = "DayOfBirth" })
+                </div>
+                <button type="submit" class="editBar">
+                    <span id="btn-save" class="glyphicon glyphicon-floppy-disk"></span>
+                </button>
+            </div>
+        }
+
+        @using (Ajax.BeginForm("ChangeLogin", null, new AjaxOptions { HttpMethod = "POST" }, new { @class = "updateUserForm", @field = Html.NameFor(c => c.UserLogin) }))
+        {
+            <div class="input">
+                <p>Логин</p>
+                @Html.TextBoxFor(c => c.UserLogin, new { @class = "userData form-control" })
+                <button type="submit" class="editBar">
+                    <span id="btn-save" class="glyphicon glyphicon-floppy-disk"></span>
+                </button>
+            </div>
+        }
+
+        @using (Ajax.BeginForm("ChangePassword", null, new AjaxOptions { HttpMethod = "POST" }, new { @class = "updateUserForm", @field = Html.NameFor(c => c.UserPassword) }))
+        {
+            <div class="input">
+                <p>Пароль</p>
+                @Html.TextBoxFor(c => c.UserPassword, new { @class = "userData form-control" })
+                <button type="submit" class="editBar">
+                    <span id="btn-save" class="glyphicon glyphicon-floppy-disk"></span>
+                </button>
+            </div>
+        }
+        
+        <div class="link">
+            @Html.ActionLink("Удалить страницу (повторное восстановление невозможно)", "DeletePage", null, new { @style = "color:red; font-size: 20px; padding: 15px;" })
+        </div>
+
+
+    </section>
+    <script>
+        $(document).ready(function () {
+
+            function endChange() {
+                var endDate = end.value();
+                endDate = new Date(endDate);
+                end.max(Date.now);
+            }
+
+            var end = $("#DayOfBirth").kendoDatePicker({
+                change: endChange,
+                format: "dd.MM.yyyy",
+                max: new Date(Date.now())
+            }).data("kendoDatePicker");
+
+        });
+        $('.updateUserForm').submit(function (e) {
+            e.preventDefault();
+            submitAjaxForm($(e.target));
+        });
+        function submitAjaxForm(form) {
+            var isDate = false;
+            var dataValue = $(".userData", form).val();
+            if (dataValue == "") {
+                dataValue = $("#DayOfBirth", form).val();
+                isDate = true;
+            }
+            var url = form.attr("action");
+            var field = form.attr("field");
+            var user = {};
+            user[field] = dataValue;
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: user,
+                success: function (data) {
+                    console.log(data);
+                    alert("Значение " + data + " сохранено");
+                    if (!isDate)
+                        form.find(".userData").val(data);
+                    else
+                        $("#DayOfBirth", form).val(data);
+                }
+            });
+        }
+
+        $('#uploadImg').change(function (event) {
+            $("img").fadeIn("fast").attr('src', URL.createObjectURL(event.target.files[0]));
+
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+﻿@model SocialNetwork.Models.UsersAndMessagesModel
+@{
+    ViewBag.Title = "CreateDialog";
+}
+<link href="~/Bootstrap/css/bootstrap.css" rel="stylesheet" />
+<html>
+<head>
+    <link href="~/Content/styles/CreateDialogStyles.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="container ">
+        <header>Создание диалога</header>
+        @using (Html.BeginForm("SaveDialog","Dialogs", FormMethod.Post,  new { @style = "text-align: center;"}))
+        {
+            foreach (var item in Model.Users)
+            {
+                if (item.Id != Model.AuthorizedUser.Id)
+                {
+                    <text>
+                        <div class="messagesRow" id="@item.Id">
+                            <img src="@item.PhotoURL" class="circle">
+                            @item.UserName
+                        </div>
+                    </text>
+                }
+            }
+            <input type="text" style="width:80%; display:inline-block;" id="title" class="form-control">
+
+            <input type="button" style="display:inline-block" class=" btn btn-default btn-lg" id="add" value="Добавить" />
+        }
+     </div>
+        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+        <script src="~/Scripts/jquery.signalR-2.4.0.min.js"></script>
+        <script src="~/signalr/hubs"></script>
+        <script src="~/Bootstrap/js/bootstrap.js"></script>
+        <script>
+            Array.prototype.remove = function (value) {
+                var idx = this.indexOf(value);
+                if (idx != -1) {
+                    return this.splice(idx, 1);
+                }
+                return false;
+            }
+
+            $(function () {
+                var userList = new Array();
+                userList.push(@Model.AuthorizedUser.Id);
+                var addDialogServer = $.connection.addDialogHub;
+
+                $.connection.hub.start().done(function () {
+                    $('.messagesRow').click(function (event) {
+                        if (this.style.backgroundColor == "white") {
+                            userList.remove(this.id);
+                            this.style.backgroundColor = "#808080";
+                        }
+                        else {
+                            userList.push(this.id);
+                            this.style.backgroundColor = "white";
+                        }
+                    });
+                    $('#add').click(function () {
+                       $.ajax({
+                            type: "POST",
+                            url: "@Url.Action("AddDialog", "Dialogs")",
+                           data: { idArray: userList.toString(), dialogName: $('#title').val() },
+                           success: () => {
+                                window.location = "@Url.Action("DialogList", "Dialogs")";
+                           }
+                        });
+                    });
+                });
+            });
+        </script>
+</body>
+</html>

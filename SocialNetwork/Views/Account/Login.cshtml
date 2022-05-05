@@ -1,0 +1,40 @@
+﻿@model SocialNetwork.Models.LoginModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<html>
+<head>
+    <link href="~/Bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <script src="~/Bootstrap/js/bootstrap.js"></script>
+    <title>Вход</title>
+    <link href="~/Content/styles/LoginStyles.css" rel="stylesheet" />
+</head>
+<body style="background: white">
+    <header>
+        <h1>Вход</h1>
+    </header>
+    <section>
+        <h3 class="page-header" style="color: red;">@ViewBag.Message</h3>
+        @using (Html.BeginForm("Login"))
+        {
+            <div class="input">
+                <p>
+                    Логин
+                </p>
+                @Html.TextBoxFor(c => c.UserLogin, new { @class = "form-control" })
+            </div>
+            <div class="input">
+                <p>
+                    Пароль
+                </p>
+                @Html.PasswordFor(c => c.Password, new { @class = "form-control" })
+            </div>
+            <div class="inputSub">
+                <input type="submit" class=" btn btn-default btn-lg" value="Войти" />
+            </div>
+        }
+    </section>
+</body>
+</html>
